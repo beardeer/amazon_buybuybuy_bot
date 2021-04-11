@@ -5,7 +5,7 @@ Features:
 1) auto sigin into amazon.com
 2) goto the product page
 3) check the "buy now" price and "all buying options" price
-4) add stuff to cart and checkout!
+4) if price is right, add stuff to cart and checkout!
 
 How to use:
 1)  install python
