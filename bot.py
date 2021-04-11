@@ -8,7 +8,7 @@ CHROME_DRIVER_PATH = 'replace with your local chrome driver path'
 AMA_SIGIN_URL= 'https://www.amazon.com/ap/signin?openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2F%3Fref_%3Dnav_custrec_signin&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=usflex&openid.mode=checkid_setup&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&'
 
 # the stuff you want to buy
-PRO_URL='https://www.amazon.com/gp/product/B000QSNYGI/ref=ppx_yo_dt_b_asin_title_o04_s00?ie=UTF8&psc=1'
+PRO_URL=['https://www.amazon.com/dp/B08NW5HNYW/', 'https://www.amazon.com/dp/B08P2H5LW2']
 
 MAX_PRICE = 10
 
@@ -72,9 +72,12 @@ class BuyBuyBuyBot():
         sleep(2)
         try:
             print("Checking price, second try ... ")
-            see_all = self.driver.find_element_by_xpath('//*[@id="buybox-see-all-buying-choices"]')
-            see_all.click()
-            sleep(2)
+            try:
+                see_all = self.driver.find_element_by_xpath('//*[@id="buybox-see-all-buying-choices"]')
+                see_all.click()
+                sleep(2)
+            except Exception as e:
+                print(e)
             price = self.driver.find_element_by_xpath('//*[@id="aod-price-1"]')
             price = self.format_price(price)
             if price < max_price:
@@ -96,11 +99,11 @@ class BuyBuyBuyBot():
             pass
 
 
-    def check_and_buy(self):
+    def check_and_buy(self, prod_url):
         if IS_TEST == False:
             print(f"In prod model, trying to buy this item with ${MAX_PRICE}!!")
-        sleep(3)  
-        self.driver.get(PRO_URL)
+        sleep(1)  
+        self.driver.get(prod_url)
         sleep(3)
         try:
             price_check, price_route = self.check_price(MAX_PRICE)
@@ -116,6 +119,7 @@ class BuyBuyBuyBot():
                 cart = self.driver.find_element_by_name('submit.addToCart')
                 cart.click()
             sleep(2)
+            # click no to coverage
             self.no_coverage()
             sleep(2)
             # check out
@@ -134,9 +138,10 @@ class BuyBuyBuyBot():
         except Exception as e:
             print(e)
             sleep(3)
-            self.check_and_buy()
 
 
 bot = BuyBuyBuyBot()
 bot.login()
-bot.check_and_buy()
+while True:
+    for url in PRO_URL:
+        bot.check_and_buy(url)
