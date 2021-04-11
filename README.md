@@ -14,7 +14,7 @@ How to use:
 4)  change global variables
 5)  run! 
 
-ToDO:
+ToDo:
 1) add a manual login mode so F2A can work
 2) replce timer with something like isDisplayed
 
