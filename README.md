@@ -15,8 +15,8 @@ How to use:
 5)  run! 
 
 ToDo:
-1) add a manual login mode so F2A can work
-2) replce timer with something like isDisplayed
+1) add a manual login mode so 2FA can work
+2) (maybe) replace timer with something like isDisplayed
 
 ref:
 1) https://github.com/SebaLG/amazon-python-bot
