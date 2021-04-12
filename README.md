@@ -10,7 +10,7 @@ Features:
 How to use:
 1)  install python
 2)  pip install selenium
-3)  download extract chromedriver: https://sites.google.com/a/chromium.org/chromedriver/
+3)  download and extract chromedriver: https://sites.google.com/a/chromium.org/chromedriver/
 4)  change global variables
 5)  run! 
 
